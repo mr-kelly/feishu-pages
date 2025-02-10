@@ -277,11 +277,15 @@ export const feishuDownload = async (
   } else {
     console.info("Downloading file", fileToken, "...");
     console.info("File type is", type, "...");
+
+    const fileUrl = type === "board" ?
+      `${feishuConfig.endpoint}/open-apis/board/v1/whiteboards/${fileToken}/download_as_image` :
+      `${feishuConfig.endpoint}/open-apis/drive/v1/medias/${fileToken}/download`;
+
     res = await axios
       .get(
-        type === "board" ?
-          `${feishuConfig.endpoint}/open-apis/board/v1/whiteboards/${fileToken}/download_as_image` :
-          `${feishuConfig.endpoint}/open-apis/drive/v1/medias/${fileToken}/download`,
+        fileUrl
+        ,
         {
           responseType: "stream",
           headers: {
@@ -296,6 +300,9 @@ export const feishuDownload = async (
             " -> ERROR: Failed to download image:",
             fileToken,
             res.status,
+            "URL: ",
+            fileUrl
+
           );
           return null;
         }
@@ -327,6 +334,8 @@ export const feishuDownload = async (
           " -> ERROR: Failed to download image:",
           fileToken,
           message,
+          "URL: ",
+          fileUrl
         );
         // If status is 403
         // https://open.feishu.cn/document/server-docs/docs/drive-v1/faq#6e38a6de

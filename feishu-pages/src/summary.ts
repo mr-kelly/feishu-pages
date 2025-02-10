@@ -34,7 +34,7 @@ export const prepareDocSlugs = (
     if (URL_STYLE === 'original') {
       fileSlug = doc.node_token;
     } else if (URL_STYLE === 'absolute') {
-      fileSlug = '/' + fileSlug;
+      fileSlug = fileSlug;
     }
 
     doc.slug = fileSlug;
