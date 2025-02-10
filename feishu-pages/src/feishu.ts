@@ -25,13 +25,16 @@ export const TMP_DIR = path.resolve(
   process.env.TMP_DIR || path.join(OUTPUT_DIR, ".tmp"),
 );
 
+export type UrlStyleType = "nested" | "original" | "absolute";
+
 /**
- * "original" | "nested", default: "nested"
+ * "original" | "nested" | "absolute", default: "nested"
  *
  * raw: /G5JwdLWUkopngoxfQtIc7EFSnIg
  * nested: /slug1/slug2/slug3
+ * absolute: /full-slug
  */
-export const URL_STYLE = process.env.URL_STYLE || "nested";
+export const URL_STYLE: UrlStyleType = (process.env.URL_STYLE || "nested") as UrlStyleType;
 /**
  * Skip download assets, for debug speed up.
  */
